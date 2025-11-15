@@ -43,6 +43,28 @@ class EventsProvider extends ChangeNotifier {
     await load();
   }
 
+  Future<void> updateMemberName(
+    String eventId,
+    String memberId,
+    String newName,
+  ) async {
+    final ev = _box.get(eventId);
+    if (ev == null) return;
+    final idx = ev.members.indexWhere((m) => m.id == memberId);
+    if (idx == -1) return;
+    ev.members[idx].name = newName;
+    await _box.put(ev.id, ev);
+    await load();
+  }
+
+  Future<void> deleteMember(String eventId, String memberId) async {
+    final ev = _box.get(eventId);
+    if (ev == null) return;
+    ev.members.removeWhere((m) => m.id == memberId);
+    await _box.put(ev.id, ev);
+    await load();
+  }
+
   Future<void> addExpense({
     required String eventId,
     required String title,

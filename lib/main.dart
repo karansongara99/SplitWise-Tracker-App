@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'providers/events_provider.dart';
 import 'screens/home_screen.dart';
+import 'screens/splash_screen.dart';
 import 'storage/hive_boxes.dart';
 
 Future<void> main() async {
@@ -24,12 +25,13 @@ class SplitWiseTrackerApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => EventsProvider()..load()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Splitwise Tracker',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
           useMaterial3: true,
         ),
-        home: const HomeScreen(),
+        home: const SplashScreen(),
       ),
     );
   }
